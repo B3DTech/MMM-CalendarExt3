@@ -550,6 +550,7 @@ selector-pseudo-class-no-unknown, keyframes-name-pattern,
   white-space: unset;
   overflow-wrap: break-word;
   hyphens: auto;
+<<<<<<< HEAD
   text-wrap: balance;
   overflow-y: hidden;
 
@@ -605,4 +606,7 @@ selector-pseudo-class-no-unknown, keyframes-name-pattern,
 
 #CX3_POPOVER .criteriaItem.calendar .name::before {
   content: "CALENDAR";
+=======
+  /* text-wrap: balance; */ /* Expreimental for CSS Text Module Level 4 */
+>>>>>>> 2a9e54b (Custom changes)
 }

@@ -33,10 +33,15 @@ Module.register("MMM-CalendarExt3", {
     },
     calendarSet: [],
     maxEventLines: 5, // How many events will be shown in a day cell.
+<<<<<<< HEAD
     // It could be possible to use {} like {"4": 6, "5": 5, "6": 4} to set different lines by the number of the week of the month.
     // Also, it could be possible to use [] like [8, 8, 7, 6, 5] to set different lines by the number of week of the month.
     fontSize: "18px",
     eventHeight: "22px",
+=======
+    fontSize: '18px',
+    eventHeight: '26px',
+>>>>>>> 2a9e54b (Custom changes)
     eventFilter: (ev) => { return true },
     eventSorter: null,
     eventTransformer: (ev) => { return ev },
@@ -319,12 +324,42 @@ Module.register("MMM-CalendarExt3", {
 
     if (notification === "MODULE_DOM_CREATED") {
       this._domReady()
+<<<<<<< HEAD
       const moduleContainer = document.querySelector(`#${this.identifier} .module-content`)
       const callback = (mutationsList, observer) => {
         for (let mutation of mutationsList) {
           const content = document.querySelector(`#${this.identifier} .module-content .CX3`)
           if (mutation.addedNodes.length > 0) this.updated(content, this.activeConfig)
         }
+=======
+    }
+    
+    if (notification === 'CX3_MOVE_CALENDAR' || notification === 'CX3_GLANCE_CALENDAR') {
+      if (notification === 'CX3_MOVE_CALENDAR') {
+        Log.warn (`[DEPRECATED]'CX3_MOVE_CALENDAR' notification will be deprecated. Use 'CX3_GLANCE_CALENDAR' instead.`)
+      }
+      if (payload?.instanceId === this.config.instanceId || !payload?.instanceId) {
+        console.log ('Move Calendar Detected')
+        this.stepIndex += payload?.step ?? 0
+        this.updateDom(this.config.animationSpeed)
+      }
+    }
+    
+
+    if (notification === 'CX3_SET_DATE') {
+      if (payload?.instanceId === this.config.instanceId || !payload?.instanceId) {
+        this.tempMoment = new Date(payload?.date ?? null)
+        this.stepIndex = 0
+        this.updateDom(this.config.animationSpeed)
+      } 
+    }
+
+    if (notification === 'CX3_RESET') {
+      if (payload?.instanceId === this.config.instanceId || !payload?.instanceId) {
+        this.tempMoment = null
+        this.stepIndex = 0
+        this.updateDom(this.config.animationSpeed)
+>>>>>>> 2a9e54b (Custom changes)
       }
       const MutationObserver = window.MutationObserver || window.WebKitMutationObserver
       const observer = new MutationObserver(callback)
@@ -351,6 +386,7 @@ Module.register("MMM-CalendarExt3", {
       }
     }
 
+<<<<<<< HEAD
     if (["CX3_GLANCE_CALENDAR", "CX3_MOVE_CALENDAR", "CX3_SET_DATE"].includes(notification)) {
       console.warn("[DEPRECATED]'CX3_GLANCE_CALENDAR' notification was deprecated. Use 'CX3_SET_CONFIG' instead. (README.md)")
     }
@@ -370,6 +406,39 @@ Module.register("MMM-CalendarExt3", {
       this.activeConfig = this.regularizeConfig({ ...this.originalConfig })
       this.updateAnimate()
       replyCurrentConfig(payload)
+=======
+  socketNotificationReceived: function(notification, payload) {
+    if (notification === "EVENT_ADD_SUCCESS") {
+        console.log("EVENT_ADD_SUCCESS received, calling forceRefresh...");
+        this.forceRefresh();
+    }
+},
+
+  getDom: function() {
+    let dom = document.createElement('div')
+    dom.innerHTML = ""
+    dom.classList.add('bodice', 'CX3_' + this.instanceId, 'CX3', 'mode_' + this.mode)
+    if (this.config.fontSize) dom.style.setProperty('--fontsize', this.config.fontSize)
+    dom.style.setProperty('--maxeventlines', this.config.maxEventLines)
+    dom.style.setProperty('--eventheight', this.config.eventHeight)
+    dom.style.setProperty('--displayEndTime', (this.config.displayEndTime) ? 'inherit' : 'none')
+    dom.style.setProperty('--displayWeatherTemp', (this.config.displayWeatherTemp) ? 'inline-block' : 'none')
+    dom = this.draw(dom, this.config)
+    if (this.library?.loaded) {
+      if (this.refreshTimer) {
+        clearTimeout(this.refreshTimer)
+        this.refreshTimer = null
+      }
+      this.refreshTimer = setTimeout(() => {
+        clearTimeout(this.refreshTimer)
+        this.refreshTimer = null
+        this.tempMoment = null
+        this.stepIndex = 0
+        this.updateDom(this.config.animationSpeed)
+      }, this.config.refreshInterval)
+    } else {
+      Log.warn('[CX3] Module is not prepared yet, wait a while.')
+>>>>>>> 2a9e54b (Custom changes)
     }
   },
 
@@ -547,6 +616,7 @@ Module.register("MMM-CalendarExt3", {
       dom.append(dayDom)
     }
 
+<<<<<<< HEAD
     const makeWeekGridDom = (dom, options, events, { boc, eoc }) => {
       const getMaxEventLines = ({ maxEventLines }, weekCount) => {
         if (Number.isInteger(+maxEventLines) && Number.isFinite(+maxEventLines)) return +maxEventLines
@@ -742,6 +812,10 @@ Module.register("MMM-CalendarExt3", {
     makeWeekGridDom(dom, options, targetEvents, { boc, eoc })
     if (options.displayLegend) displayLegend(dom, targetEvents, options)
     if (options.customHeader) customHeaderDom(dom, options, { boc, eoc })
+=======
+    if (config.displayLegend) displayLegend(dom, events, {useSymbol: config.useSymbol})
+    
+>>>>>>> 2a9e54b (Custom changes)
     return dom
   },
 
@@ -756,6 +830,7 @@ Module.register("MMM-CalendarExt3", {
     return this.data.header
   },
 
+<<<<<<< HEAD
   updateAnimate () {
     this.updateDom(
       (!animationSupported)
@@ -771,4 +846,8 @@ Module.register("MMM-CalendarExt3", {
         }
     )
   }
+=======
+
+  
+>>>>>>> 2a9e54b (Custom changes)
 })
