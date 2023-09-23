@@ -7,8 +7,13 @@ selector-pseudo-class-no-unknown, keyframes-name-pattern,
 .CX3 {
   /* you CAN modify these values; but SHOULD NOT to remove */
   --celllinecolor: #333;
+<<<<<<< HEAD
   --cellbgcolor: rgb(0 0 0 / 20%);
   --cellheaderheight: 25px;
+=======
+  --cellbgcolor: rgba(0, 0, 0, 0.2);
+  --cellheaderheight: 33px;
+>>>>>>> 530c9bd (tjat fork)
   --cellfooterheight: 2px;
   --defaultcolor: #fff;
   --eventheight: calc(var(--fontsize) + 4px);
@@ -609,4 +614,26 @@ selector-pseudo-class-no-unknown, keyframes-name-pattern,
 =======
   /* text-wrap: balance; */ /* Expreimental for CSS Text Module Level 4 */
 >>>>>>> 2a9e54b (Custom changes)
+}
+
+.CX3 .workIcon {
+  width: 25px;
+  height: 25px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: inline-block;
+  margin-right: 5px;
+  margin-top: 5px
+}
+
+.CX3 .jasonWorkIcon {
+  background-image: url('./icon/jason_icon.png');
+}
+
+.CX3 .jennWorkIcon {
+  background-image: url('./icon/jenn_icon.png');
+}
+
+.CX3 .championsIcon {
+  background-image: url('./icon/C_logo.png');
 }
