@@ -816,14 +816,14 @@ for (i = 0; i < 7; i++) {
         if (title === "Jenn work" || title === "Jenn Work" || title.includes("birthday") || title.includes("Birthday")) {
           return title; // Return the title unchanged
         }
-        return title.replace(/Jenn |Sara |Heidi /g, '');
+        return title.replace(/Jenn |Sara |Heidi |Jason /g, '');
     }
 
       for (let event of eventsOfWeek) {
         // Modify the event title before rendering
         // Remove events that are handled with cell icons
         event.title = cleanEventTitle(event.title);
-        if (event.title !== "Jason work" && event.title !== "Jenn work" 
+        if (event.title !== "Jason work" && event.title !== "Jenn work" && event.title !== "work"
           && event.title !== "Champions" && event.title !== "Day 1" && event.title !== "Day 2" && event.title !== "Day 3"
           && event.title !== "Day 4" && event.title !== "Day 5" && event.title !== "Day 6") {
           let eDom = renderEventAgenda(
